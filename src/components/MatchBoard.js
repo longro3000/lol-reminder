@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Player from './PlayerCard';
 import { reduxForm, Field } from 'redux-form';
+import { FetchStartingNotes } from 'actions';
 import _ from 'lodash';
-import champions from 'lol-champions';
-import spells from 'lol-spells';
+
 
 class MatchBoard extends React.Component {
 
@@ -39,6 +39,7 @@ class MatchBoard extends React.Component {
         //---------------------------------------------
         const opponent = participants[_.findIndex(participants, {'summonerId': values.opponent})];
         
+        this.props.FetchStartingNotes(player, opponent);
         
     }
     
@@ -66,4 +67,4 @@ const mapStateToProps = (state) => {
 
 export default reduxForm({
     form: 'matchUpForm'
-})(connect(mapStateToProps)(MatchBoard));
+})(connect(mapStateToProps, { FetchStartingNotes })(MatchBoard));
