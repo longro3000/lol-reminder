@@ -20,7 +20,7 @@ class MatchBoard extends React.Component {
         return this.props.participants.map((player) =>{
             return (
                 <div>
-                    { AlliedTeam!=player.teamId && <Field name={`team${player.teamId}`} component='input' type='radio' value={`${player.summonerId}`} /> }
+                    { AlliedTeam!=player.teamId && <Field name='opponent' component='input' type='radio' value={`${player.summonerId}`} /> }
                     <Player player={player} />
                 </div>
             );
@@ -29,14 +29,20 @@ class MatchBoard extends React.Component {
 
     onSubmit = (values) => {
         const { participants } = this.props; 
-        const team1 = participants[_.findIndex(participants, {'summonerId': values.team100})];
-        const team2 = participants[_.findIndex(participants, {'summonerId': values.team200})];
+        const { summoner } = this.props
+        
+
+        //  -----this is for testing purpose-----
+
+        const player = participants[/*_.findIndex(participants, {'summonerId': summoner.id})*/5];
+
+        //---------------------------------------------
+        const opponent = participants[_.findIndex(participants, {'summonerId': values.opponent})];
+        
         
     }
     
     render() {
-        console.log(spells);
-        console.log(champions);
         if (!this.props.participants) {
             return (
                 <div>Loading...</div>

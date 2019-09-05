@@ -168,7 +168,7 @@ export default {
             },
             {
                 "profileIconId": 3496,
-                "championId": 246,
+                "championId": 91,
                 "summonerName": "GoldChronos",
                 "gameCustomizationObjects": [],
                 "bot": false,
