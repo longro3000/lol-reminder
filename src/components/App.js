@@ -5,6 +5,7 @@ import Header from './Header';
 import history from '../history';
 import SummonerSearch from './SummonerSearch';
 import LiveMatch from './LiveMatch.js';
+import NotesPage from './NotesPage';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
             <Switch>
                <Route path='/' exact component={SummonerSearch} />
                <Route path='/livematch' exact component={LiveMatch} />
+               <Route path='/notes' exact component={NotesPage} />
             </Switch>
           </div>
         </Router>

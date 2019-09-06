@@ -19,7 +19,7 @@ class MatchBoard extends React.Component {
 
         return this.props.participants.map((player) =>{
             return (
-                <div>
+                <div key={player.summonerId}>
                     { AlliedTeam!=player.teamId && <Field name='opponent' component='input' type='radio' value={`${player.summonerId}`} /> }
                     <Player player={player} />
                 </div>

@@ -51,11 +51,13 @@ export const FetchLiveMatch = (summonerID) => async (dispatch) => {
 export const FetchStartingNotes = (player1, player2) => async (dispatch) => {
 
         const MatchUpStatistic = (player1, player2) => {
-            return [
-                'ward river around 2:30',
-                'clear 1st melee minion in 2nd wave for level advantage',
-                'stay out of minions to prevent getting pokes'
-            ];
+            return {
+                'initialNotes': [
+                    'ward river around 2:30',
+                    'clear 1st melee minion in 2nd wave for level advantage',
+                    'stay out of minions to prevent getting pokes'
+                ]
+            };
         };
         const response = MatchUpStatistic(player1, player2);
          /*const api = axios.create({
@@ -63,6 +65,7 @@ export const FetchStartingNotes = (player1, player2) => async (dispatch) => {
         });
 
         const response = await api.get(`/${summonerID}`);*/
+        console.log(response);
 
         if (!response.status) {
             dispatch({ type: FETCH_START_NOTES, payload: response });
