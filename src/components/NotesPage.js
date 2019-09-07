@@ -5,12 +5,45 @@ import { connect } from 'react-redux';
 
 class NotesPage extends React.Component {
 
+    grantNotificationPermission = () => {
+        if (!('Notification' in window)) {
+          alert('This browser does not support system notifications');
+          return;
+        }
+
+        if (Notification.permission === 'granted') {
+          //new Notification('You are already subscribed to message notifications');
+          return;
+        }
+
+        if (
+          Notification.permission !== 'denied' ||
+          Notification.permission === 'default'
+        ) {
+          Notification.requestPermission().then(result => {
+            if (result === 'granted') {
+              new Notification(
+                'Awesome! You will start receiving notifications shortly'
+              );
+            }
+          });
+        }
+      };
+
+
     renderInitialNotes() {
+        let Note;
         const { initialNotes } = this.props.notes;
         return initialNotes.map((note) => {
-                return (
-                    <div>{note}</div>
-                );
+                
+                Note = new Notification('', {
+                    body: `${note}`,
+                })
+                Note.onClick = () => {
+                    Note.close.bind(Note);
+                }
+                setTimeout(Note.close.bind(Note), 3000);
+                return;
             }
         )
     }
@@ -19,11 +52,14 @@ class NotesPage extends React.Component {
         if (!this.props.notes) {
             return <div>Loading...</div>
         }
-        return (
-            <div>
-                {this.renderInitialNotes()}
-            </div>
-        );
+        {
+            this.grantNotificationPermission();
+            return (
+                <div>
+                    {this.renderInitialNotes()}
+                </div>
+            );
+        }
     };
 };
 
