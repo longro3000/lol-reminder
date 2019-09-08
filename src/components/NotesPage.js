@@ -1,5 +1,6 @@
 import React from 'react';
 import { fetchLiveMatch } from 'actions';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 
 
@@ -30,6 +31,28 @@ class NotesPage extends React.Component {
         }
       };
 
+    componentDidUpdate() {
+        this.props.fetchLiveMatch();
+    }
+
+    renderNotes() {
+        let Note;
+        const notes = _.get(this.props.notes, this.props.timeStamp, 'none');
+
+        if (notes === 'none') {
+          return;
+        }
+          return notes.map( note => {
+                Note = new Notification('', {
+                    body: `${note}`,
+                })
+                Note.onClick = () => {
+                    Note.close.bind(Note);
+                }
+                setTimeout(Note.close.bind(Note), 3000);
+                return;
+          })
+    }
 
     renderInitialNotes() {
         let Note;
@@ -56,7 +79,8 @@ class NotesPage extends React.Component {
             this.grantNotificationPermission();
             return (
                 <div>
-                    {this.renderInitialNotes()}
+                    { this.props.timeStamp == 0 ? this.renderInitialNotes() : this.renderNotes() }
+                    
                 </div>
             );
         }
@@ -64,7 +88,8 @@ class NotesPage extends React.Component {
 };
 
 const mapStateToProps = (state) => {
-    return { notes: state.notes };
+    return { notes: state.notes,
+              timeStamp: state.liveMatch.gameLength };
 }
 
 export default connect(mapStateToProps)(NotesPage);
