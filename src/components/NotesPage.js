@@ -1,5 +1,6 @@
 import React from 'react';
 import { fetchLiveMatch } from 'actions';
+import Player from './PlayerCard';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 
@@ -54,6 +55,24 @@ class NotesPage extends React.Component {
           })
     }
 
+    renderPlayerInfo() {
+        const { participants } = this.props;
+        return (
+          <div>
+            <Player player={_.find(participants, { 'summonerName': `${this.props.match.params.name}`})} />
+          </div>
+        );
+    }
+
+    renderAllNotes() {
+        const { notes } = this.props;
+        return (
+            <div>
+              asdasdsad
+            </div>
+        );
+    }
+    
     renderInitialNotes() {
         let Note;
         const { initialNotes } = this.props.notes;
@@ -80,7 +99,8 @@ class NotesPage extends React.Component {
             return (
                 <div>
                     { this.props.timeStamp == 0 ? this.renderInitialNotes() : this.renderNotes() }
-                    
+                    {this.renderPlayerInfo()}
+                    {this.renderAllNotes()}
                 </div>
             );
         }
@@ -88,8 +108,9 @@ class NotesPage extends React.Component {
 };
 
 const mapStateToProps = (state) => {
-    return { notes: state.notes,
-              timeStamp: state.liveMatch.gameLength };
+    return {  notes: state.notes,
+              timeStamp: state.liveMatch.gameLength,
+              participants: state.liveMatch.participants};
 }
 
 export default connect(mapStateToProps)(NotesPage);

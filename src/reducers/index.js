@@ -5,9 +5,10 @@ import LiveMatchReducer from './LiveMatchReducer';
 import NotesReducer from './NotesReducer';
 
 
+
 export default combineReducers({
     summoner: SummonerReducer,
-    liveMatch: LiveMatchReducer, 
+    liveMatch: LiveMatchReducer,
     notes: NotesReducer,
     form: formReducer
 });

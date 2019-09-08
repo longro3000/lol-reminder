@@ -17,7 +17,7 @@ function App() {
             <Switch>
                <Route path='/' exact component={SummonerSearch} />
                <Route path='/livematch' exact component={LiveMatch} />
-               <Route path='/notes' exact component={NotesPage} />
+               <Route path='/notes/:name' exact component={NotesPage} />
             </Switch>
           </div>
         </Router>

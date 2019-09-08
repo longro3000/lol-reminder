@@ -65,11 +65,10 @@ export const FetchStartingNotes = (player1, player2) => async (dispatch) => {
         });
 
         const response = await api.get(`/${summonerID}`);*/
-        console.log(response);
 
         if (!response.status) {
             dispatch({ type: FETCH_START_NOTES, payload: response });
-            history.push('./notes');
+            history.push(`./notes/${player1.summonerName}`);
         }
         else {
     
